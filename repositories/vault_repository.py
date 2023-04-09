@@ -14,7 +14,7 @@ class VaultRepository:
 
     def compound(self, vault_address: str) -> str:
         nonce = self.w3.eth.get_transaction_count(self.config.user_address)
-        tx = self.vault_contract.functions.compound().build_transaction({"nonce": nonce})
+        tx = self.vault_contract.functions.compound().build_transaction({"nonce": nonce, "from": self.config.user_address})
         print(tx)
         signed = self.w3.eth.account.sign_transaction(tx, private_key=self.config.private_key)
         print(signed)
